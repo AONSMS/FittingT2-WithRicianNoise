@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Sep  6 14:11:27 2022
-
-@author: user7t
+Monte carlo simulation the linear regression
+@author: Orfanidis Alexandre
 """
 
 import numpy as np
@@ -25,7 +25,7 @@ MT2starmeanMean=[]
 MT2starMeanStDMean=[]
 TT2_star_list=[]
 COUNT=0
-while COUNT<500:
+while COUNT<10000:#trick. I had to implement two loops because np.polyfit can't support too much data. By looping the loop, you can 
     FinalMT2=[]
     TrueMeasuredSignal=[]
     v = 4
@@ -87,16 +87,16 @@ while COUNT<500:
     MT2starMean=[]
     for i in range(len(MT2star)):
                     x=3*i+20
-                    MT2star2.append(MT2star[i].clip(0,x))
+                    MT2star2.append(MT2star[i].clip(0,x)) #cut all the datas too incoherent to be seriously presented. Removing the clip shows that my method of calculating the T2* is not the best way. Ask Miguel Guevara/Ludovic de Rochefort for any info
                     #MT2star2.append(MT2star[i][MT2star[i]>=0])
                     MT2starMean.append(np.average(MT2star2[i]))
                     MT2starMeanStD=np.std(MT2star2,1)#Calculate standard deviation of MT2star (orange on the plot)
     MT2starmeanMean.append(MT2starMean)     
     MT2starMeanStDMean.append(MT2starMeanStD)#doing a mean of that is problably non sense          
          
-            #create the figure:
-    #plt.figure()
-    #fig, ax = plt.subplots()
+            #create part of the final figure with Monte Carlo Results:
+    plt.figure()
+    fig, ax = plt.subplots()
    
     plt.xlabel('T2* Théorique')
     plt.xlim([0, 10])
@@ -108,8 +108,6 @@ while COUNT<500:
     #plt.plot(T2_star_list,MT2starMean,c='orange')
     plt.plot(T2_star_list,T2_star_list,'-', c='red')
     #plt.show
-    
-    
     COUNT+=1
 
 MT2starmeanMean=np.mean(MT2starmeanMean, axis=0)
@@ -121,9 +119,9 @@ MT2starMeanStDMean=np.asarray(MT2starMeanStDMean)
 plt.errorbar(T2_star_list,MT2starmeanMean,MT2starMeanStDMean,c='orange')
 plt.plot(T2_star_list,MT2starmeanMean,c='red')
 plt.show
-#plt.savefig(str(n_iter*COUNT) + 'T2linearfittingGaussianNoiseTriche'+ '[0,10]')
+#plt.savefig(str(n_iter*COUNT) + 'MonteCarloLinear'+ '[0,10]')
 """
-
+#shows the relative uncertainty of the linear fitting method
 plt.figure()
 fig, ax = plt.subplots()
 plt.xlabel('T2* théorique (ms)')
@@ -133,5 +131,5 @@ plt.ylim([0, 100])
 plt.title("Importance de l'incertitude en fonction du T2* théorique"+' : '+str((n_iter*COUNT))+' itérations')
 plt.plot(T2_star_list,100*MT2starMeanStDMean/MT2starmeanMean,'-', c='red')
 plt.show
-plt.savefig(str((n_iter*COUNT))+'ImportanceIncertitudeT2ricienfitLinéaireTriche' + '2')
+plt.savefig(str((n_iter*COUNT))+'IncertitudeRelativeLinéaire')
 """
