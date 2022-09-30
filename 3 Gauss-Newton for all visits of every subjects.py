@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jul 20 08:52:41 2022
-
-@author: user7t
+Apply the gauss newton algorithm to all the concatenated files obtained through the 2 programm
+@author: Orfanidis Alexandre
 """
 
 import numpy as np
