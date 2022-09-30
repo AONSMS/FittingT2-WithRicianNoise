@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jul 18 10:10:02 2022
-
-@author: user7t
+Take all the echos from the rawdata of every subject and compile them in one file per subject per visit.
+@author: Orfanidis Alexandre
 """
 import nibabel as ni
 import glob #glob allow to ignore some parts of a file name
