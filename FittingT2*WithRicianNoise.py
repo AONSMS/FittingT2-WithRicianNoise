@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Aug  9 14:48:21 2022
-
-@author: Orfanidis Alexandre
+MonteCarlo simulation for the GaussNewton algorithm 
+@author: Orfanidis Alexandre, Ludovic de Rochefort made the Gauss Newton part
 """
 import numpy as np
 import glob
@@ -119,8 +119,8 @@ for a in range(len(T2_star_list)):
     Préabsci = [a] * n_iter
     #print(Préabsci)
     abscisse.append(Préabsci)
-"""   
-#create the figure:
+  
+#show MonteCarlo results for our GaussNewton algorithm:
 plt.figure()
 fig, ax = plt.subplots()
 plt.xlabel('T2* Théorique')
@@ -132,9 +132,9 @@ plt.scatter(abscisse,MT2star) #points obtained during Monte Carlo
 plt.errorbar(T2_star_list,MT2starMean,MT2starMeanStD,c='orange') #measured T2* curve 
 plt.plot(T2_star_list,T2_star_list,'-', c='red') #theorical curve
 plt.show
-plt.savefig(str(n_iter)+'T2fittingRicianNoiseVersiondeLudovic')
-"""
+plt.savefig(str(n_iter)+'MonteCarloResultsGaussNewton')
 
+#Give the figure for relative uncertainty
 plt.figure()
 fig, ax = plt.subplots()
 plt.xlabel('T2* théorique (ms)')
@@ -144,7 +144,7 @@ plt.ylim([0, 40]) #limit arbitrarly set to give a readable image
 plt.title("Importance de l'incertitude en fonction du T2* théorique"+' : '+str(n_iter)+' itérations')
 plt.plot(T2_star_list,100*MT2starMeanStD/MT2starMean,'-', c='red') 
 plt.show
-#plt.savefig(str(n_iter)+'ImportanceIncertitudeT2)
+plt.savefig(str(n_iter)+'IncertitudeRelativeGaussNewton')
 
 bias=np.polyfit(T2_star_list,MT2starMean,1)
 print ('BIAS : '+ str(bias))
